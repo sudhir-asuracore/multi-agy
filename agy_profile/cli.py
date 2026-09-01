@@ -18,7 +18,7 @@ from agy_profile.core import (
 )
 from agy_profile.runner import execute_agy
 
-# Terminal ANSI colors
+#Terminal ANSI colors
 GREEN = "\033[92m"
 CYAN = "\033[96m"
 YELLOW = "\033[93m"
@@ -83,7 +83,7 @@ def cmd_create(manager: ProfileManager, args: argparse.Namespace) -> None:
     desc = args.description or ""
     try:
         p = manager.create_profile(name, description=desc)
-        print(f"{GREEN}✓ Created profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Created profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
         install_shims(manager)
         print(f"\nTo log in to this account, run:\n  {CYAN}agy-profile login {name}{RESET}  or  {CYAN}agy --profile {name}{RESET}\n")
     except Exception as e:
@@ -120,7 +120,7 @@ def cmd_default(manager: ProfileManager, args: argparse.Namespace) -> None:
         name = args.name.strip().lower()
         try:
             manager.set_default_profile(name)
-            print(f"{GREEN}✓ Default profile set to '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
+            print(f"{GREEN}[OK] Default profile set to '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
         except Exception as e:
             print(f"{RED}Error: {e}{RESET}", file=sys.stderr)
             sys.exit(1)
@@ -139,7 +139,7 @@ def cmd_bind(manager: ProfileManager, args: argparse.Namespace) -> None:
 
     try:
         manager.bind_directory(target_dir, profile_name, create_file=not args.no_file)
-        print(f"{GREEN}✓ Bound directory '{BOLD}{target_dir}{RESET}{GREEN}' to profile '{BOLD}{profile_name}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Bound directory '{BOLD}{target_dir}{RESET}{GREEN}' to profile '{BOLD}{profile_name}{RESET}{GREEN}'.{RESET}")
         if not args.no_file:
             print(f"{DIM}Created .agyprofile marker in {target_dir}{RESET}")
     except Exception as e:
@@ -151,7 +151,7 @@ def cmd_unbind(manager: ProfileManager, args: argparse.Namespace) -> None:
     target_dir = Path(args.path).resolve() if args.path else Path.cwd().resolve()
     success = manager.unbind_directory(target_dir)
     if success:
-        print(f"{GREEN}✓ Unbound directory '{BOLD}{target_dir}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Unbound directory '{BOLD}{target_dir}{RESET}{GREEN}'.{RESET}")
     else:
         print(f"{YELLOW}No profile binding found for '{target_dir}'.{RESET}")
 
@@ -170,7 +170,7 @@ def cmd_delete(manager: ProfileManager, args: argparse.Namespace) -> None:
 
     try:
         manager.delete_profile(name, create_backup=not args.no_backup)
-        print(f"{GREEN}✓ Deleted profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Deleted profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
         # Refresh shims
         install_shims(manager)
     except Exception as e:
@@ -183,7 +183,7 @@ def cmd_rename(manager: ProfileManager, args: argparse.Namespace) -> None:
     new_name = args.new_name.strip().lower()
     try:
         manager.rename_profile(old_name, new_name)
-        print(f"{GREEN}✓ Renamed profile '{old_name}' to '{BOLD}{new_name}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Renamed profile '{old_name}' to '{BOLD}{new_name}{RESET}{GREEN}'.{RESET}")
         install_shims(manager)
     except Exception as e:
         print(f"{RED}Error: {e}{RESET}", file=sys.stderr)
@@ -195,7 +195,7 @@ def cmd_import(manager: ProfileManager, args: argparse.Namespace) -> None:
     desc = args.description or "Imported from ~/.gemini"
     try:
         p = manager.import_current_gemini(name, description=desc)
-        print(f"{GREEN}✓ Successfully imported existing ~/.gemini into profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
+        print(f"{GREEN}[OK] Successfully imported existing ~/.gemini into profile '{BOLD}{name}{RESET}{GREEN}'.{RESET}")
         if p.email:
             print(f"  Account email: {CYAN}{p.email}{RESET}")
         install_shims(manager)
@@ -231,7 +231,7 @@ def cmd_sync_config(manager: ProfileManager, args: argparse.Namespace) -> None:
             shutil.copy2(src_mcp, dest_cli_dir / "mcp.json")
         count += 1
 
-    print(f"{GREEN}✓ Synchronized configurations from '{src_name}' to {count} profile(s).{RESET}")
+    print(f"{GREEN}[OK] Synchronized configurations from '{src_name}' to {count} profile(s).{RESET}")
 
 
 def install_shims(manager: ProfileManager) -> None:
@@ -289,12 +289,12 @@ def cmd_install(manager: ProfileManager, args: argparse.Namespace) -> None:
     project_root = Path(__file__).resolve().parent.parent
 
     wrapper_content = f"""#!/usr/bin/env bash
-# Multi-AGY Smart Wrapper
+#Multi-AGY Smart Wrapper
 PYTHONPATH="{project_root}:${{PYTHONPATH}}" exec "{py_exec}" -m agy_profile.wrapper "$@"
 """
 
     manager_content = f"""#!/usr/bin/env bash
-# Multi-AGY Profile Manager CLI
+#Multi-AGY Profile Manager CLI
 PYTHONPATH="{project_root}:${{PYTHONPATH}}" exec "{py_exec}" -m agy_profile.cli "$@"
 """
 
@@ -317,10 +317,10 @@ PYTHONPATH="{project_root}:${{PYTHONPATH}}" exec "{py_exec}" -m agy_profile.cli 
     # 4. Install profile shims
     install_shims(manager)
 
-    print(f"\n{GREEN}{BOLD}✓ Multi-AGY successfully installed!{RESET}")
-    print(f"  • Wrapper installed to: {CYAN}{wrapper_script_path}{RESET}")
-    print(f"  • Profile manager:      {CYAN}{manager_script_path}{RESET}")
-    print(f"\nYou can now run:\n  {BOLD}agy-profile list{RESET}       - See all accounts & profiles\n  {BOLD}agy-profile create <name>{RESET} - Add another work or personal account\n  {BOLD}agy --profile <name>{RESET}     - Start agy with that specific profile\n  {BOLD}agy_<name>{RESET}               - Direct shortcut command\n")
+    print(f"\n{GREEN}{BOLD}[OK] Multi-AGY successfully installed!{RESET}")
+    print(f"  - Wrapper installed to: {CYAN}{wrapper_script_path}{RESET}")
+    print(f"  - Profile manager:      {CYAN}{manager_script_path}{RESET}")
+    print(f"\nYou can now run:\n  {BOLD}agy-profile list{RESET}       - See all accounts and profiles\n  {BOLD}agy-profile create <name>{RESET} - Add another work or personal account\n  {BOLD}agy --profile <name>{RESET}     - Start agy with that specific profile\n  {BOLD}agy_<name>{RESET}               - Direct shortcut command\n")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -421,7 +421,7 @@ def main() -> None:
         cmd_install(manager, args)
     elif args.command == "install-shims":
         install_shims(manager)
-        print(f"{GREEN}✓ Refreshed profile shims in ~/.local/bin{RESET}")
+        print(f"{GREEN}[OK] Refreshed profile shims in ~/.local/bin{RESET}")
 
 
 if __name__ == "__main__":

@@ -5,32 +5,32 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Ubuntu-orange.svg)]()
 
-**Multi-AGY** is a lightweight, zero-dependency profile manager and smart CLI dispatcher for Google Antigravity CLI (`agy`). It enables seamless management and concurrent usage of multiple authenticated Google Antigravity Pro and Work accounts on Linux without token collisions, credential overwrites, or manual logouts.
+Multi-AGY is a lightweight, zero-dependency profile manager and smart CLI dispatcher for Google Antigravity CLI (`agy`). It enables seamless management and concurrent usage of multiple authenticated Google Antigravity Pro and Work accounts on Linux without token collisions, credential overwrites, or manual logouts.
 
 ---
 
-## 🌟 Features
+## Features
 
-- **🛡️ True Process & Session Isolation**:
+- **True Process and Session Isolation**:
   - Leverages unprivileged Linux user namespaces via `bwrap` (Bubblewrap) to mount each profile's dedicated `.gemini` folder to `~/.gemini` strictly for that command session.
   - Automatically isolates DBus session sockets and GNOME Keyring daemon instances so multiple accounts never overwrite each other.
   - Your `$HOME`, shell config, `.ssh` keys, `.gitconfig`, and local files remain 100% native and untouched. Zero root/sudo permissions needed.
-- **⚡ Parallel Multi-Account Sessions**:
+- **Parallel Multi-Account Sessions**:
   - Run multiple terminal tabs or background workflows using different Antigravity accounts at the exact same time.
-- **🎯 Flexible Account Switching**:
+- **Flexible Account Switching**:
   - **Direct CLI Flag**: `agy --profile <name>` or `agy -P <name>`
   - **Command Alias Shims**: `agy_work`, `agy_personal`, `agy-client`
   - **Project Auto-Switching**: Place `.agyprofile` in a directory or git repository to automatically bind that project to an account.
   - **Environment Variable**: `export AGY_PROFILE=work`
   - **Global Fallback**: Set your global default with `agy-profile default <name>`.
-- **📊 Profile Management CLI**:
+- **Profile Management CLI**:
   - Manage accounts with `agy-profile list`, `create`, `login`, `whoami`, `bind`, `sync-config`, `rename`, and `delete` (with automatic zip backups).
-- **🔄 Configuration Syncing**:
+- **Configuration Syncing**:
   - Selectively share custom skills, rules, and MCP server configurations across profiles while keeping OAuth credentials completely isolated.
 
 ---
 
-## 🏗️ How It Works
+## How It Works
 
 ```mermaid
 flowchart TD
@@ -56,14 +56,14 @@ flowchart TD
 
 ---
 
-## 🚀 Installation & Quick Start
+## Installation and Quick Start
 
 ### 1. Prerequisites
-- Linux / Ubuntu (with `bubblewrap` pre-installed: `sudo apt install bubblewrap`)
+- Linux / Ubuntu (with `bubblewrap` installed: `sudo apt install bubblewrap`)
 - Python 3.8+
 - Google Antigravity CLI (`agy`) installed in `~/.local/bin`
 
-### 2. Clone & Install
+### 2. Clone and Install
 ```bash
 git clone https://github.com/sudhir-asuracore/multi-agy.git
 cd multi-agy
@@ -78,9 +78,9 @@ This automatically:
 
 ---
 
-## 📖 Usage Guide
+## Usage Guide
 
-### 1. Add a New Profile & Authenticate
+### 1. Add a New Profile and Authenticate
 ```bash
 # Create a new profile
 agy-profile create work --description "Work Pro Account"
@@ -89,7 +89,7 @@ agy-profile create work --description "Work Pro Account"
 agy-profile login work
 ```
 
-### 2. View Profiles & Accounts
+### 2. View Profiles and Accounts
 ```bash
 agy-profile list
 ```
@@ -121,7 +121,7 @@ Inside your project or git repository:
 cd ~/IdeaProjects/work-repo
 agy-profile bind work
 ```
-Now, simply running `agy` anywhere inside `~/IdeaProjects/work-repo` will automatically use your `work` profile!
+Now, simply running `agy` anywhere inside `~/IdeaProjects/work-repo` will automatically use your `work` profile.
 
 #### Option D: Inspect Active Context
 Check which profile is active in your current working directory:
@@ -131,7 +131,7 @@ agy-profile whoami
 
 ---
 
-## 🛠️ CLI Reference (`agy-profile`)
+## CLI Reference (`agy-profile`)
 
 | Command | Description |
 | :--- | :--- |
@@ -150,7 +150,7 @@ agy-profile whoami
 
 ---
 
-## 🐚 Shell Completion (Bash / Zsh)
+## Shell Completion (Bash / Zsh)
 
 ### Bash
 Add to your `~/.bashrc`:
@@ -167,7 +167,7 @@ autoload -Uz compinit && compinit
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run the automated test suite:
 ```bash
@@ -178,6 +178,6 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
