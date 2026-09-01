@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi-agy"
+version = "1.0.0"
+description = "Multi-Account and Profile Manager for Google Antigravity CLI (agy)"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Sid" }
+]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+]
+
+[project.scripts]
+agy-profile = "agy_profile.cli:main"
+agy-wrap = "agy_profile.wrapper:main"

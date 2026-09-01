@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+"""Executable entrypoint for agy smart wrapper."""
+
+import os
+import sys
+
+# MULTI_AGY wrapper marker
+# Add project root to sys.path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+from agy_profile.wrapper import main
+
+if __name__ == "__main__":
+    main()
