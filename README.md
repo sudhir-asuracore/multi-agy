@@ -97,7 +97,7 @@ Output:
 ```text
 ACTIVE       PROFILE   ACCOUNT EMAIL            DEFAULT  STATUS         LAST USED 
 -----------  --------  -----------------------  -------  -------------  ----------
-* (current)  personal  sidigridghost@gmail.com  yes      authenticated  2026-09-01
+* (current)  personal  onimusha@gmail.com       yes      authenticated  2026-09-01
              work      developer@company.com    no       authenticated  2026-09-01
 ```
 
