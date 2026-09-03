@@ -36,6 +36,29 @@ class TestWrapper(unittest.TestCase):
         self.assertIsNone(prof)
         self.assertEqual(args, ["-p", "check code", "--continue"])
 
+    def test_command_name_resolution(self):
+        from unittest.mock import MagicMock
+        from agy_profile.core import ProfileManager
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            base = Path(tmpdir)
+            pm = ProfileManager(base_dir=base)
+            pm.create_profile("work")
+            pm.create_profile("personal")
+
+            # Resolves from command name alias
+            name, reason = pm.resolve_profile(command_name="agy-work")
+            self.assertEqual(name, "work")
+            self.assertIn("Command alias", reason)
+
+            name, reason = pm.resolve_profile(command_name="/home/user/.local/bin/agy_work")
+            self.assertEqual(name, "work")
+
+            name, reason = pm.resolve_profile(command_name="agy-personal")
+            self.assertEqual(name, "personal")
+
 
 if __name__ == "__main__":
     unittest.main()

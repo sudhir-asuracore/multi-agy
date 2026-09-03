@@ -290,7 +290,7 @@ def cmd_install(manager: ProfileManager, args: argparse.Namespace) -> None:
 
     wrapper_content = f"""#!/usr/bin/env bash
 #Multi-AGY Smart Wrapper
-PYTHONPATH="{project_root}:${{PYTHONPATH}}" exec "{py_exec}" -m agy_profile.wrapper "$@"
+AGY_COMMAND_NAME="${{AGY_COMMAND_NAME:-$0}}" PYTHONPATH="{project_root}:${{PYTHONPATH}}" exec "{py_exec}" -m agy_profile.wrapper "$@"
 """
 
     manager_content = f"""#!/usr/bin/env bash

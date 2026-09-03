@@ -68,7 +68,7 @@ def main() -> None:
     ensure_initial_setup(manager)
 
     raw_args = sys.argv[1:]
-    command_name = sys.argv[0]
+    command_name = os.environ.get("AGY_COMMAND_NAME") or sys.argv[0]
 
     # Check for direct agy-profile delegation if called as `agy profile ...`
     if raw_args and raw_args[0] in ("profile", "profiles"):
